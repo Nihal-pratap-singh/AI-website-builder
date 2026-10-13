@@ -18,13 +18,13 @@ function setSessionCookie(res, payload) {
     expiresIn: "30d",
   });
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "none",
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    path: "/",
-  });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  maxAge: 30 * 24 * 60 * 60 * 1000,
+});
 }
 
 // Register a new user.

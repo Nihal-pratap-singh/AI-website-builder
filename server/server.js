@@ -20,20 +20,18 @@ const allowedOrigins = (process.env.ORIGINS || "")
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests without an Origin header (e.g. health checks).
       if (!origin || allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      return callback(
-        new Error(`CORS blocked origin: ${origin}`)
-      );
+      console.error("CORS blocked origin:", origin);
+      return callback(new Error("Origin not allowed by CORS"));
     },
     credentials: true,
   })
 );
 
-// 3. Parse cookies and JSON before routes
+// Parse cookies and JSON before API routes
 app.use(cookieParser());
 app.use(express.json());
 
